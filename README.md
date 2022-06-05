@@ -5,12 +5,12 @@ Simulation of a database for ELIDEK. Project for the 6th semester course "Databa
 
 In order to execute the web app, one must have an installation of Apache HTTP Server, MariaDB database and an interpreter that executes the PHP scripts. All of these can be found in an XAMPP installation. Once those requirements are met, the steps are the following
 
-1.) Open XAMPP
-2.) Activate the Apache and MySql modules.
-3.) Connect to the server with root privileges using a DBMS.
-4.) Execute the 'elidek_creation.sql' script.
-5.) Wait.
-6.) Locate your 'htdocs' folder.
-7.) Move the 'elidek_website' folder in the 'htdocs' folder.
-8.) Open a browser.
-9.) Type 'localhost/elidek_website/' in the search bar.
+1. Open XAMPP
+2. Activate the Apache and MySql modules.
+3. Connect to the server with root privileges using a DBMS.
+4. Execute the 'elidek_creation.sql' script.
+5. Wait.
+6. Locate your 'htdocs' folder.
+7. Move the 'elidek_website' folder in the 'htdocs' folder.
+8. Open a browser.
+9. Type 'localhost/elidek_website/' in the search bar.
