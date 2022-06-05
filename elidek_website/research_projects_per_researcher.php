@@ -13,47 +13,98 @@
 </head>
 
 <body>
-	<?php
-		include 'myelidek.php';
-        $conn = OpenCon();
-		$sql = "SELECT * FROM `researches_per_worker`;";
-		$result = mysqli_query($conn,$sql);
-		if ($result->num_rows > 0)
-		{
-		// output data of each row
-		//echo "<table>";
-		echo '<div class="table-responsive">';
-            echo '<table class="table">';
-				echo '<thead>';
-                    echo '<tr>';
-                        echo '<th>Researcher ID</th>';
-                        echo '<th>First Name</th>';
-                        echo '<th>Last Name</th>';
-                        echo '<th>Research ID</th>';
-                        echo '<th>Research Title</th>';
-					echo '</tr>';
-				echo '</thead>';
-				echo '<tbody>';
-				while($row = mysqli_fetch_row($result))
+	<nav class="navbar navbar-light navbar-expand-md" id="nav-bar">
+        <div id="navbar-div" class="container-fluid">
+            <a class="navbar-brand" id="nav-bar-text">Databases PHP Elidek - Researchers page</a>
+            <a id="navbar-items" href="/elidek_website/">
+                <i class="fa fa-home "></i> Landing
+            </a>
+        </div>
+    </nav>
+	<div class="container">
+		<div class="row" id="row">
+			<div class="col-md-12">
+				<form class="form-horizontal" name="student-form" method="POST">
+					<h3> Enter new Research Worker </h3>
+					<h4> Make sure that the research project is managed by the same institute where the researcher is employed.</h4>
+					<div class="form-group col-sm-3 mb-3">
+						<label class = "form-label">Researcher ID</label>
+						<input class = "form-control", placeholder="Enter researcher ID", name="worker_id">
+					</div>
+					<div class="form-group col-sm-3 mb-3">
+						<label class = "form-label">Research ID</label>
+						<input class = "form-control", placeholder="Enter research ID", name="research_id">
+					</div>
+					<button class = "btn btn-primary btn-submit-custom" type="submit" name="submit_creds">Submit</button>
+					<button class = "btn btn-primary btn-submit-custom" formaction="index.php">Back</button>
+				</form>
+			</div>
+		<div class="form-group col-sm-3 mb-3">
+		<?php
+			include 'myelidek.php';
+			$conn = OpenCon();
+			if(isset($_POST['submit_creds']))
+			{
+				$worker_id = isset($_POST['worker_id'])? ($_POST['worker_id']) : "NULL";
+				$research_id = isset($_POST['research_id'])? ($_POST['research_id']) : "NULL";
+				if ($worker_id == "NULL" or $research_id == "NULL")
 				{
-					echo '<tr>';
-					//echo "<tr><td>". htmlspecialchars($row['product_id']) . "</td><td>" . htmlspecialchars($row['title']) . htmlspecialchars($row['budget']) .htmlspecialchars($row['elidek_address']) . "</td></tr>";
-					//echo "program ID: " . $row["program_id"]. " - Title: " . $row["title"]. " - Budget: " . $row["budget"]. "€" ." - Elidek Address: " .$row["elidek_address"]. "<br>";
-						echo '<td>' . $row[0] . '</td>';
-						echo '<td>' . $row[1] . '</td>';
-						echo '<td>' . $row[2] . '</td>';
-						echo '<td>' . $row[3] . '</td>';
-						echo '<td>' . $row[4] . '</td>';
-						echo '<td><a href="more_research_info.php?id='.$row[3].'">more info</a></td>';
-						echo '<td>';
-						echo '</td>';
-					echo '</tr>';
+					echo "Researcher ID or Research ID should not be empty!";
 				}
-				echo '</tbody>';
-			echo '</table>';
-		echo '</div>';
-		}
-		//else { echo '<h1 style="margin-top: 5rem;">No Programs found!</h1>' }
-		//echo "</table>";
-	?>
+				else
+				{
+					$query = "INSERT INTO `research_worker`
+							VALUES ('$worker_id', '$research_id');";
+					$flag = true;
+					try
+					{
+						mysqli_query($conn,$query);
+					}
+					catch(Exception $e)
+					{
+						$flag = false;
+					}
+					if ($flag)
+					{
+						header("Location: ./research_projects_per_researcher.php");
+						exit();
+					}
+					else
+					{
+						echo "Error while creating record: <br>" . mysqli_error($conn) . "<br>";
+					}
+				}
+			}
+			$sql = "SELECT * FROM `researches_per_worker`;";
+			$result = mysqli_query($conn,$sql);
+			if ($result->num_rows > 0)
+			{
+				echo '<div class="table-responsive">';
+					echo '<table class="table">';
+						echo '<thead>';
+							echo '<tr>';
+								echo '<th>Researcher ID</th>';
+								echo '<th>First Name</th>';
+								echo '<th>Last Name</th>';
+								echo '<th>Research ID</th>';
+								echo '<th>Research Title</th>';
+							echo '</tr>';
+						echo '</thead>';
+						echo '<tbody>';
+						while($row = mysqli_fetch_row($result))
+						{
+							echo '<tr>';
+								echo '<td>' . $row[0] . '</td>';
+								echo '<td>' . $row[1] . '</td>';
+								echo '<td>' . $row[2] . '</td>';
+								echo '<td>' . $row[3] . '</td>';
+								echo '<td>' . $row[4] . '</td>';
+								echo '<td><a href="more_research_info.php?id='.$row[3].'">more info</a></td>';
+							echo '</tr>';
+						}
+						echo '</tbody>';
+					echo '</table>';
+				echo '</div>';
+			}
+		?>
 </body>
