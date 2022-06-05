@@ -1,6 +1,11 @@
 # ELIDEK-Database
 Simulation of a database for ELIDEK. Project for the 6th semester course "Databases" of the School of Electrical and Computer Engineering of the National Technical University of Athens.
 
+Members:
+
+- Anastasios - Stefanos Anagnostou 03119051
+- Spyridon Papadopoylos 03119058
+
 ![image](https://user-images.githubusercontent.com/62098670/172059410-343cf6ef-f8ba-43ca-9e2e-95878dcd0fbd.png)
 
 In order to execute the web app, one must have an installation of Apache HTTP Server, MariaDB database and an interpreter that executes the PHP scripts. All of these can be found in an XAMPP installation. Once those requirements are met, the steps are the following
